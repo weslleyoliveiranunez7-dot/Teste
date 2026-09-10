@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>PROJECT BLUE LOCK</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="grid-overlay"></div>
+
+<!-- SPLASH -->
+<section class="screen" id="screen-splash" data-screen="splash">
+  <div class="splash-wrap">
+    <img src="assets/logo.png" alt="Project Blue Lock" class="splash-logo">
+    <h1 class="game-title">PROJECT <span>BLUE LOCK</span></h1>
+    <p class="splash-tap">toque para entrar</p>
+  </div>
+</section>
+
+<!-- MAIN MENU -->
+<section class="screen" id="screen-menu" data-screen="menu">
+  <header class="menu-header">
+    <img src="assets/logo.png" alt="logo" class="menu-logo">
+    <h1 class="game-title small">PROJECT <span>BLUE LOCK</span></h1>
+  </header>
+
+  <nav class="menu-list">
+    <button class="menu-btn" data-nav="career" data-num="01">
+      <span class="menu-btn-label">NOVA CARREIRA</span>
+      <span class="menu-btn-tag">criar jogador</span>
+    </button>
+    <button class="menu-btn" data-nav="continue" data-num="02" id="btn-continue" disabled>
+      <span class="menu-btn-label">CONTINUAR</span>
+      <span class="menu-btn-tag" id="continue-tag">nenhum save encontrado</span>
+    </button>
+    <button class="menu-btn" data-nav="player" data-num="03">
+      <span class="menu-btn-label">MEU JOGADOR</span>
+      <span class="menu-btn-tag">ficha e evolução</span>
+    </button>
+    <button class="menu-btn" data-nav="selections" data-num="04">
+      <span class="menu-btn-label">SELEÇÕES</span>
+      <span class="menu-btn-tag">seleções do mundo</span>
+    </button>
+    <button class="menu-btn" data-nav="world" data-num="05">
+      <span class="menu-btn-label">MUNDO</span>
+      <span class="menu-btn-tag">ranking global</span>
+    </button>
+    <button class="menu-btn" data-nav="settings" data-num="06">
+      <span class="menu-btn-label">CONFIGURAÇÕES</span>
+      <span class="menu-btn-tag">áudio e preferências</span>
+    </button>
+  </nav>
+
+  <footer class="menu-footer">v0.1 · FASE 1 — FUNDAÇÃO</footer>
+</section>
+
+<!-- GENERIC SUB-SCREEN TEMPLATE (career / player / selections / world) -->
+<section class="screen sub-screen" id="screen-career" data-screen="career">
+  <header class="sub-header">
+    <button class="back-btn" data-back>‹ VOLTAR</button>
+    <h2 class="sub-title">CRIAÇÃO DO JOGADOR</h2>
+  </header>
+  <div class="sub-body form-scroll">
+    <form id="form-player" novalidate>
+
+      <div class="form-group">
+        <label for="f-nome">Nome</label>
+        <input type="text" id="f-nome" maxlength="30" placeholder="Nome completo">
+      </div>
+
+      <div class="form-group">
+        <label for="f-apelido">Apelido</label>
+        <input type="text" id="f-apelido" maxlength="16" placeholder="Como vão te chamar">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="f-idade">Idade</label>
+          <input type="number" id="f-idade" min="15" max="40" value="17">
+        </div>
+        <div class="form-group">
+          <label for="f-altura">Altura (cm)</label>
+          <input type="number" id="f-altura" min="150" max="210" value="175">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="f-cidade">Cidade natal</label>
+        <input type="text" id="f-cidade" maxlength="30" placeholder="De onde você vem">
+      </div>
+
+      <div class="form-group">
+        <label for="f-posicao">Posição</label>
+        <select id="f-posicao"></select>
+      </div>
+
+      <div class="form-group">
+        <label for="f-pe">Pé dominante</label>
+        <select id="f-pe"></select>
+      </div>
+
+      <div class="form-group">
+        <label for="f-estilo">Estilo visual</label>
+        <select id="f-estilo"></select>
+      </div>
+
+      <div class="form-group">
+        <label>Avatar</label>
+        <div class="avatar-grid" id="avatar-grid"></div>
+      </div>
+
+      <div class="form-group">
+        <label>Personalidade</label>
+        <div class="personality-grid" id="personality-grid"></div>
+      </div>
+
+      <p class="form-error" id="form-error"></p>
+
+      <button type="submit" class="primary-btn" id="btn-confirm-new">CRIAR JOGADOR</button>
+    </form>
+  </div>
+</section>
+
+<section class="screen sub-screen" id="screen-player" data-screen="player">
+  <header class="sub-header">
+    <button class="back-btn" data-back>‹ VOLTAR</button>
+    <h2 class="sub-title">MEU JOGADOR</h2>
+  </header>
+  <div class="sub-body player-sheet">
+    <div id="ficha-vazio"><p class="placeholder-text">Nenhum jogador criado ainda. Vá em "NOVA CARREIRA" pra criar o seu.</p></div>
+
+    <div id="ficha-conteudo">
+      <div class="ficha-topo">
+        <div class="ficha-avatar" id="ficha-avatar"></div>
+        <h3 class="ficha-nome" id="ficha-nome"></h3>
+        <p class="ficha-posicao" id="ficha-posicao"></p>
+        <div class="xp-bar-wrap">
+          <div class="xp-bar-label">
+            <span id="ficha-nivel"></span>
+            <span id="ficha-xp"></span>
+          </div>
+          <div class="xp-bar-track"><div class="xp-bar-fill" id="ficha-xp-fill"></div></div>
+        </div>
+      </div>
+
+      <nav class="player-tabs" id="player-tabs">
+        <button class="tab-btn active" data-tab="geral">Geral</button>
+        <button class="tab-btn" data-tab="atributos">Atributos</button>
+        <button class="tab-btn" data-tab="mental">Mental</button>
+        <button class="tab-btn" data-tab="ego">Ego</button>
+        <button class="tab-btn" data-tab="estatisticas">Estatísticas</button>
+        <button class="tab-btn" data-tab="historico">Histórico</button>
+        <button class="tab-btn" data-tab="conquistas">Conquistas</button>
+      </nav>
+
+      <div class="tab-content active" id="tab-geral"></div>
+      <div class="tab-content" id="tab-atributos"></div>
+      <div class="tab-content" id="tab-mental"></div>
+      <div class="tab-content" id="tab-ego"></div>
+      <div class="tab-content" id="tab-estatisticas"></div>
+      <div class="tab-content" id="tab-historico"></div>
+      <div class="tab-content" id="tab-conquistas"></div>
+    </div>
+  </div>
+</section>
+
+<section class="screen sub-screen" id="screen-selections" data-screen="selections">
+  <header class="sub-header">
+    <button class="back-btn" data-back>‹ VOLTAR</button>
+    <h2 class="sub-title">SELEÇÕES</h2>
+  </header>
+  <div class="sub-body">
+    <p class="placeholder-text">As seleções do mundo chegam em fase futura.</p>
+  </div>
+</section>
+
+<section class="screen sub-screen" id="screen-world" data-screen="world">
+  <header class="sub-header">
+    <button class="back-btn" data-back>‹ VOLTAR</button>
+    <h2 class="sub-title">MUNDO</h2>
+  </header>
+  <div class="sub-body">
+    <p class="placeholder-text">O ranking global chega em fase futura.</p>
+  </div>
+</section>
+
+<!-- SETTINGS (funcional) -->
+<section class="screen sub-screen" id="screen-settings" data-screen="settings">
+  <header class="sub-header">
+    <button class="back-btn" data-back>‹ VOLTAR</button>
+    <h2 class="sub-title">CONFIGURAÇÕES</h2>
+  </header>
+  <div class="sub-body">
+    <div class="setting-row">
+      <label for="vol-music">Música</label>
+      <input type="range" id="vol-music" min="0" max="100" value="70">
+    </div>
+    <div class="setting-row">
+      <label for="vol-sfx">Efeitos sonoros</label>
+      <input type="range" id="vol-sfx" min="0" max="100" value="80">
+    </div>
+    <div class="setting-row switch-row">
+      <label for="chk-mute">Mudo</label>
+      <input type="checkbox" id="chk-mute">
+    </div>
+    <button class="primary-btn danger" id="btn-reset-save">APAGAR SAVE</button>
+  </div>
+</section>
+
+<script src="js/data.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
